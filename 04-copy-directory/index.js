@@ -1,10 +1,11 @@
 const fs = require('fs');
 const path = require('path');
+const dir = path.join(__dirname, 'files-copy');
 
-fs.mkdir(path.join(__dirname, 'nuw-file'), err => {
-  if (err) throw err;
-  console.log('new folder created');
-});
+
+async function addFile() {
+ await fs.promises.rm(dir, { recursive: true, force: true });
+ await fs.promises.mkdir(dir);
 
 fs.readdir (
   path.resolve(__dirname, 'files'), {withFileTypes: true}, (err, files) => {
@@ -14,7 +15,7 @@ fs.readdir (
     else {
       files.forEach(file => {
         if (file.isFile()) {
-          fs.copyFile( path.join(__dirname, 'files', file.name), path.join(__dirname, 'nuw-file', file.name), (err) => {
+          fs.copyFile( path.join(__dirname, 'files', file.name), path.join(__dirname, 'files-copy', file.name), (err) => {
               if (err) console.log('Error' , err);
               console.log(`${file.name} copy created!`)
             })
@@ -23,3 +24,9 @@ fs.readdir (
     }
   }
 )
+
+ }
+
+ addFile();
+
+

@@ -18,9 +18,9 @@ fs.readdir(dir, {withFileTypes: true}, function filesType(err, files) {
           const nameFile= path.parse(elemPath).name;
           const typeFile = path.extname(elemPath).slice(1);
           
-          console.log(`${nameFile} - ${typeFile} - ${stats.size} byte\n`);
+          process.stdout.write(`${nameFile} - ${typeFile} - ${stats.size} byte\n`);
         })
-      }  console.log(file)
+      }  
       
     }) 
 })
